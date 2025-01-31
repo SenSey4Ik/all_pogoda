@@ -5,6 +5,7 @@ import aiohttp
 import asyncio
 import time
 from threading import Thread
+import os
 
 start_time = time.time()
 
@@ -77,37 +78,45 @@ async def parcer(x):
 def main():
     instruction()
     metod = int(input(f"Введите значение: "))
-    if metod == 1:
-        sinh_pog()
-        end_time = time.time() - start_time
-        print(f'Вермя выполнения {end_time} секунд')
+    while True:
+        if metod == 1:
+            sinh_pog()
+            end_time = time.time() - start_time
+            print(f'Вермя выполнения {end_time} секунд')
+            break
 
-    if metod == 2:
-        loop = asyncio.get_event_loop()
-        tasks = [loop.create_task(parcer(x)) for x in range(100)]
-        loop.run_until_complete(asyncio.wait(tasks))
-        end_time = time.time() - start_time
-        print(f'Вермя выполнения {end_time} секунд')
+        if metod == 2:
+            loop = asyncio.get_event_loop()
+            tasks = [loop.create_task(parcer(x)) for x in range(100)]
+            loop.run_until_complete(asyncio.wait(tasks))
+            end_time = time.time() - start_time
+            print(f'Вермя выполнения {end_time} секунд')
+            break
 
-    if metod == 3:
-        th1 = Thread(target=mnogopotok_pog)
-        th2 = Thread(target=mnogopotok_pog)
-        th3 = Thread(target=mnogopotok_pog)
-        th4 = Thread(target=mnogopotok_pog)
+        if metod == 3:
+            os.cpu_count()
+            th1 = Thread(target=mnogopotok_pog)
+            th2 = Thread(target=mnogopotok_pog)
+            th3 = Thread(target=mnogopotok_pog)
+            th4 = Thread(target=mnogopotok_pog)
 
-        th1.start()
-        th2.start()
-        th3.start()
-        th4.start()
+            th1.start()
+            th2.start()
+            th3.start()
+            th4.start()
 
-        th1.join()
-        th2.join()
-        th3.join()
-        th4.join()
-        end_time = time.time() - start_time
-        print(f'Вермя выполнения {end_time} секунд')
+            th1.join()
+            th2.join()
+            th3.join()
+            th4.join()
+            end_time = time.time() - start_time
+            print(f'Вермя выполнения {end_time} секунд')
+            break
 
-
+        if metod != 1 or 2 or 3:
+            print('Вы ввели неверно!')
+            metod = int(input(f"Введите значение: "))
+            continue
 
 
 
